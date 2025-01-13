@@ -4,6 +4,7 @@ import {BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGen
 import * as bcrypt from 'bcrypt';
 
 export enum UserRole {
+    NONVERIFIE = 'nonverifie',
     COACH = 'coach',
     JOUEUR = 'joueur',
     CONTRIBUTEUR = 'contributeur',
@@ -29,8 +30,8 @@ export class UserEntity {
 
     @Column({
       type: 'varchar',
-      enum: UserRole,  // Gardez la validation au niveau de l'énumération pour référence
-      default: UserRole.JOUEUR, // Ajoutez une valeur par défaut si nécessaire
+      enum: UserRole,  
+      default: UserRole.NONVERIFIE, // Valeur par défaut avant confirmation du club
     })
     role: UserRole;
     
@@ -53,7 +54,7 @@ export class UserEntity {
 
     @Column({
       type: 'varchar',
-      nullable: true,  // Permet d'accepter NULL pour cette colonne
+      nullable: true, 
     })
     validateToken: string;
     

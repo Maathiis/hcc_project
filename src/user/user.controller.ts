@@ -1,24 +1,14 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserEntity, UserRole } from './user.entity';
-import { UserDto } from './userCreate.dto';
-import { Roles } from 'src/guards/roles.decorateur';
-import { RolesGuard } from 'src/guards/roles.guard';
+import { Body, Controller, Post } from '@nestjs/common';
+import { UserService } from '../user/user.service';
+import { UserDto } from '../user/user.dto';
 
 @Controller('user')
 export class UserController {
-    constructor(private userService: UserService) {}
 
-    // Création d'utilisateur
-    @Post('create')
-    async createUser(@Body() createUserDto: UserDto): Promise<UserEntity> {
-        return this.userService.createUser(createUserDto);
-    }  
+    constructor(private userService: UserService) { }
 
-    @Post('validate/:id')
-    @Roles(UserRole.ADMIN) 
-    @UseGuards(RolesGuard)  
-    async validateUser(@Param('id') id: number): Promise<UserEntity> {
-      return this.userService.validateUser(id);
+    @Post('verify/:id/:role')
+    async login(@Body() userDto: UserDto) {
     }
+
 }

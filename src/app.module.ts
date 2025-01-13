@@ -12,14 +12,20 @@ import { AuthModule } from './auth/auth.module';
 import { CoachModule } from './coach/coach.module';
 import { JoueurModule } from './joueur/joueur.module';
 import { ContributeurModule } from './contributeur/contributeur.module';
+import { AuthEntity } from './auth/auth.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'sqlite',
     database: 'database.sqlite',
-    entities: [UserEntity, MatchEntity, ActualiteEntity],
+    entities: [UserEntity, MatchEntity, ActualiteEntity, AuthEntity],
     synchronize: true,
-  }), UserModule, ActualiteModule, MatchModule, AuthModule, CoachModule, JoueurModule, ContributeurModule],
+  }), 
+  ConfigModule.forRoot({
+    isGlobal: true,
+  }),
+  UserModule, ActualiteModule, MatchModule, AuthModule, CoachModule, JoueurModule, ContributeurModule],
   controllers: [AppController],
   providers: [AppService],
 })

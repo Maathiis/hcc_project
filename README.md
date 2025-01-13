@@ -97,3 +97,39 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+Aide persos -> à supprimer : 
+1. Client (Frontend ou API Consumer)
+   |
+   v
+2. Route (Définie dans le contrôleur)
+   - Correspond aux méthodes HTTP : GET, POST, PUT, DELETE
+   |
+   v
+3. Contrôleur
+   - Valide les données entrantes (via DTO)
+   - Appelle la méthode appropriée du service
+   |
+   v
+4. DTO (Data Transfer Object)
+   - Définit la structure des données
+   - Valide et transforme les données (class-validator/class-transformer)
+   |
+   v
+5. Service
+   - Contient la logique métier
+   - Interagit avec les données via un repository
+   |
+   v
+6. Repository
+   - Interface avec la base de données
+   - Manipule les entités (CRUD)
+   |
+   v
+7. Entité
+   - Représente un modèle ou une table dans la base de données
+   |
+   v
+8. Base de données
+   - Stocke les données persistantes
