@@ -133,3 +133,63 @@ Aide persos -> à supprimer :
    v
 8. Base de données
    - Stocke les données persistantes
+
+
+Auth -> Login : Pas de problème
+   {
+    "email" : "CoachBizot@gmail.com",
+    "password" : "rootroot"
+   }
+
+Auth -> Register : Pas de message de confirmation de création de compte
+   {
+    "nom": "test1",
+    "prenom": "test1",
+    "email": "test1@gmail.com",
+    "password": "rootroot"
+   }
+
+Match -> Create : Trop d'infos sur le coach |Seul les coachs peuvent créer un match
+   {
+      "intitule": "Match de préparation",
+      "dateMatch": "2025-08-11",
+      "adversaire": "Équipe A"
+   }
+
+Match -> Update : Pas de problème |Seul les coachs
+   {
+  "score": "3-2"
+   }
+OU
+   {
+  "scoreFinal": "3-2"
+   }
+OU
+   {
+   "score": "3-2",
+   "scoreFinal": "3-2"
+   }
+
+
+Actualite -> Create : Pas de problème
+   {
+   "titre": "Blablabla",
+   "data": "dygfoazzaandlifzbdhkzgkuebtgzfkhuzibgezvfskjdhfgfhvzgjfkhlhahvhdbbsn,jfhzvk"
+   }
+
+Adhérents -> user-match/inscrire : Pas de problème, peut s'inscrire à plusieurs matchs
+   {
+   "matchId": 3
+   }
+
+Adhérents -> user-match/desinscrire : Pas de message de confirmation
+   {
+   "matchId": 3
+   }
+
+Pas de Tokken requis pour l'API :
+API -> Actualite -> All : Marche correctement
+API -> Actualite -> id : Marche correctement
+
+
+Dire pourquoi j'ai fais un "dossier" API et pourquoi il y a pas de sécu dessus

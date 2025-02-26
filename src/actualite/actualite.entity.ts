@@ -1,20 +1,20 @@
-import { UserEntity } from 'src/user/user.entity';
-import {Column, Entity, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import { User } from 'src/user/user.entity';
+import {Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn} from 'typeorm';
 
-@Entity()
-export class ActualiteEntity {
+@Entity("actualite")
+export class Actualite {
   @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     titre: string;
 
-    @Column()
+    @Column({ type: 'text' })
     data: string;
 
-    @Column()
+    @CreateDateColumn()
     dateActu: Date;
 
-    @ManyToOne(() => UserEntity, user => user.actualites, { eager: true, nullable: false })
-    auteur: UserEntity;
+    @ManyToOne(() => User, (user) => user.actualites, { eager: true })
+    auteur: User;
 }

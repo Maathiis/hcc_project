@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AuthEntity } from '../auth/auth.entity';
 import { ConfigService } from '@nestjs/config';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
@@ -31,35 +32,41 @@ export class AuthService {
             dateModification: dateModification,
             validateUser: false,
         });
-
-        return this.authenticationRepository.save(newAuth);
+ 
+        await this.authenticationRepository.save(newAuth);
+        return { 
+            success: true,
+            message: 'Votre compte a bien été créé, il sera validé par un administrateur' 
+        };
     }
 
     async signin(email: string, password: string) {
-        const user = await this.authenticationRepository.findOne({
-            where: {
-                email: email,
-            },
-        });
+        try {
+            const user = await this.authenticationRepository.findOne({ where: { email } });
+            const isAuthenticated = await bcrypt.compare(password, user.password);
 
-        const isAuthenticated = await bcrypt.compare(password, user.password);
+            if (!user || !isAuthenticated) {
+                throw new UnauthorizedException('Identifiant');
+            }
 
-        if (isAuthenticated) {
-            console.log(this.configService.get<string>('JWT_SECRET'))
+            if (!user.validateUser) {
+                throw new UnauthorizedException('Votre compte n\'a pas encore été validé par un administrateur');
+            }
+
             const secret = this.configService.get<string>('JWT_SECRET');
-            console.log(secret);
-            return this.jwtService.sign(
-                {
-                    login: user.email,
-                    role: user.role
-                },
-                { secret, expiresIn: '1h' }
+            const token = this.jwtService.sign(
+                { login: user.email, role: user.role, id: user.id },
+                { secret, expiresIn: '3h' }
             );
+
+            return {
+                success: true,
+                message: 'Connexion réussie',
+                token,
+                user: { id: user.id, email: user.email, role: user.role },
+            };
+        } catch (error) {
+            throw new UnauthorizedException(error.message || 'Erreur de connexion');
         }
-
-        return;
-
     }
 }
-
-// Un compte se créé, il ne peut pas se log, il faut aller sur le compte de l'admin, et mettre /verify/ID/Roles, le compte pourra alors se log.

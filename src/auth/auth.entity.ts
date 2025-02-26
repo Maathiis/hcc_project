@@ -1,8 +1,8 @@
-import { MatchEntity } from 'src/match/match.entity';
-import { ActualiteEntity } from 'src/actualite/actualite.entity';
+import { Match } from 'src/match/match.entity';
+import { Actualite } from 'src/actualite/actualite.entity';
 import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToMany, JoinTable, OneToMany} from 'typeorm';
 
-@Entity("user_entity")
+@Entity("user")
 export class AuthEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -28,12 +28,12 @@ export class AuthEntity {
     @UpdateDateColumn()
     dateModification: Date;
 
-    @ManyToMany(() => MatchEntity, match => match.users)
+    @ManyToMany(() => Match, match => match.userMatches)
     @JoinTable()
-    match: MatchEntity[];
+    match: Match[];
 
-    @OneToMany(() => ActualiteEntity, actualite => actualite.auteur)
-    actualites: ActualiteEntity[];
+    @OneToMany(() => Actualite, actualite => actualite.auteur)
+    actualites: Actualite[];
 
     @Column()
     validateUser: boolean;

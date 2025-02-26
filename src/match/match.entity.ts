@@ -1,26 +1,31 @@
-import {Column, Entity, PrimaryGeneratedColumn, ManyToMany} from 'typeorm';
-import { UserEntity } from 'src/user/user.entity';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, Unique } from 'typeorm';
+import { User } from 'src/user/user.entity';
+import { UserMatch } from 'src/user-match/user-match.entity'; 
 
-@Entity()
-export class MatchEntity {
+@Entity("match")
+@Unique(['dateMatch'])
+export class Match {
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
-    @Column()
-    intitule: string;
+  @Column()
+  intitule: string;
 
-    @Column()
-    dateMatch: Date;
+  @Column({ type: 'date' })
+  dateMatch: Date;
 
-    @ManyToMany(() => UserEntity, user => user.match)
-    users: UserEntity[];
+  @Column()
+  adversaire: string;
 
-    @Column()
-    adversaire: string;
+  @Column({ default: '0-0' })
+  score: string;
+  
+  @Column({ nullable: true })
+  scoreFinal: string; 
 
-    @Column()
-    score: number;
+  @ManyToOne(() => User, (user) => user.matchesEntraine, { eager: true }) 
+  coach: User;
 
-    @Column()
-    scoreFinal: number;
+  @OneToMany(() => UserMatch, (userMatch) => userMatch.match)
+  userMatches: UserMatch[];
 }

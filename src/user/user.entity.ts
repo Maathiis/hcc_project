@@ -1,6 +1,7 @@
-import { MatchEntity } from 'src/match/match.entity';
-import { ActualiteEntity } from 'src/actualite/actualite.entity';
-import {BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, ManyToMany, JoinTable, OneToMany} from 'typeorm';
+import { Match } from 'src/match/match.entity';
+import { Actualite } from 'src/actualite/actualite.entity';
+import { UserMatch } from 'src/user-match/user-match.entity';
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 export enum UserRole {
@@ -12,8 +13,8 @@ export enum UserRole {
 }
 
 @Entity()
-export class UserEntity {
-  @PrimaryGeneratedColumn()
+export class User {
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
@@ -22,7 +23,7 @@ export class UserEntity {
     @Column()
     prenom: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @Column()
@@ -31,10 +32,9 @@ export class UserEntity {
     @Column({
       type: 'varchar',
       enum: UserRole,  
-      default: UserRole.NONVERIFIE, // Valeur par défaut avant confirmation du club
+      default: UserRole.NONVERIFIE,
     })
     role: UserRole;
-    
 
     @CreateDateColumn()
     dateInscription: Date;
@@ -42,30 +42,27 @@ export class UserEntity {
     @UpdateDateColumn()
     dateModification: Date;
 
-    @ManyToMany(() => MatchEntity, match => match.users)
-    @JoinTable()
-    match: MatchEntity[];
+    @OneToMany(() => Actualite, actualite => actualite.auteur)
+    actualites: Actualite[];
 
-    @OneToMany(() => ActualiteEntity, actualite => actualite.auteur)
-    actualites: ActualiteEntity[];
-
-    @Column()
+    @Column({ default: false }) // Ajout d'une valeur par défaut
     validateUser: boolean;
 
-    @Column({
-      type: 'varchar',
-      nullable: true, 
-    })
+    @Column({ type: 'varchar', nullable: true })
     validateToken: string;
-    
-    
+
+    // ✅ Un coach peut entraîner plusieurs matchs
+    @OneToMany(() => Match, (match) => match.coach)
+    matchesEntraine: Match[];
+
+    @OneToMany(() => UserMatch, (userMatch) => userMatch.user)
+    userMatches: UserMatch[];
 
     @BeforeInsert()
     @BeforeUpdate()
     async hashPassword() {
         if (this.password) {
-        this.password = await bcrypt.hash(this.password, 10);
+            this.password = await bcrypt.hash(this.password, 10);
         }
     }
 }
-

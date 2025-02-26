@@ -1,40 +1,33 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { Observable } from 'rxjs';
-import { UserRole } from "../user/user.entity";
+import { ROLES_KEY } from 'src/decorators/roles.decorateur';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    const requiredRoles = this.reflector.get<UserRole[]>('roles', context.getHandler());
+  canActivate(context: ExecutionContext): boolean {
+    const requiredRoles = this.reflector.getAllAndOverride<User['role']>(ROLES_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
     if (!requiredRoles) {
-      return false;  // Si aucune restriction n'est définie, la route n'est accessible à persone
+      return true; // Si aucun rôle requis, autoriser l'accès
     }
 
     const request = context.switchToHttp().getRequest();
-    const user = request.user;  // Assurez-vous que l'utilisateur est correctement attaché à la requête (par exemple via un JWT)
+    const user: User = request.user;
 
-    return requiredRoles.includes(user.role);  // Vérifie si le rôle de l'utilisateur est dans les rôles autorisés
+    if (!user) {
+      throw new ForbiddenException('Accès interdit');
+    }
+
+    if (!requiredRoles.includes(user.role)) {
+      throw new ForbiddenException(`Accès interdit. Rôle(s) requis : ${Array.isArray(requiredRoles) ? requiredRoles.join(', ') : requiredRoles}`);
+    }
+
+    return true;
   }
 }
-
-/*@Injectable()
-export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
-
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-    const requiredRoles = this.reflector.get<UserRole[]>('roles', context.getHandler());
-    if (!requiredRoles) {
-      return false;  // Si aucune restriction n'est définie, la route n'est accessible à persone
-    }
-
-    const request = context.switchToHttp().getRequest();
-    const user = request.user;  // Assurez-vous que l'utilisateur est correctement attaché à la requête (par exemple via un JWT)
-    if (!role || !requiredRoles.includes(role)) {
-      throw new UnauthorizedException();
-    }
-    return true; 
-  }
-}*/
