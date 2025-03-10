@@ -18,27 +18,49 @@ export class AuthService {
     ) { }
 
     async signup(nom: string, prenom: string, email: string, password: string) {
-        const saltRounds = 10;
-        const hash = await bcrypt.hash(password, saltRounds);
-        const dateInscription = new Date();
-        const dateModification = new Date();
-        const newAuth = this.authenticationRepository.create({
-            nom: nom,
-            prenom: prenom,
-            email: email,
-            password: hash,
-            role: 'nonverifie',
-            dateInscription: dateInscription,
-            dateModification: dateModification,
-            validateUser: false,
-        });
- 
-        await this.authenticationRepository.save(newAuth);
-        return { 
-            success: true,
-            message: 'Votre compte a bien été créé, il sera validé par un administrateur' 
-        };
+        try {
+            // Vérifier si l'email existe déjà
+            const existingUser = await this.authenticationRepository.findOneBy({ email });
+            if (existingUser) {
+                return {
+                    success: false,
+                    message: 'Cet email est déjà utilisé. Veuillez en choisir un autre.'
+                };
+            }
+    
+            const saltRounds = 10;
+            const hash = await bcrypt.hash(password, saltRounds);
+            const dateInscription = new Date();
+            const dateModification = new Date();
+    
+            const newAuth = this.authenticationRepository.create({
+                nom: nom,
+                prenom: prenom,
+                email: email,
+                password: hash,
+                role: 'nonverifie',
+                dateInscription: dateInscription,
+                dateModification: dateModification,
+                validateUser: false,
+            });
+    
+            await this.authenticationRepository.save(newAuth);
+    
+            return {
+                success: true,
+                message: 'Votre compte a bien été créé, il sera validé par un administrateur.'
+            };
+    
+        } catch (error) {
+            console.error('Erreur lors de l’inscription:', error);
+    
+            return {
+                success: false,
+                message: 'Une erreur est survenue lors de la création de votre compte. Veuillez réessayer plus tard.'
+            };
+        }
     }
+    
 
     async signin(email: string, password: string) {
         try {

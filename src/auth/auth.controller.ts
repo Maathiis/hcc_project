@@ -23,7 +23,7 @@ export class AuthController {
     // Un utilisateur peut se créer un compte adhérent, son compte sera validé par le club, son compte aura soit le rôle « coach », soit « contributeur », soit « joueur »
     @Post('register')
     async register(@Body() authDto: AuthDto) {
-        await this.authService.signup(authDto.nom, authDto.prenom, authDto.email, authDto.password);
-        return;
+        const result = await this.authService.signup(authDto.nom, authDto.prenom, authDto.email, authDto.password);
+        return result;
     }
 }

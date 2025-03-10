@@ -1,147 +1,10 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
-```
-
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-
-
-Aide persos -> à supprimer : 
-1. Client (Frontend ou API Consumer)
-   |
-   v
-2. Route (Définie dans le contrôleur)
-   - Correspond aux méthodes HTTP : GET, POST, PUT, DELETE
-   |
-   v
-3. Contrôleur
-   - Valide les données entrantes (via DTO)
-   - Appelle la méthode appropriée du service
-   |
-   v
-4. DTO (Data Transfer Object)
-   - Définit la structure des données
-   - Valide et transforme les données (class-validator/class-transformer)
-   |
-   v
-5. Service
-   - Contient la logique métier
-   - Interagit avec les données via un repository
-   |
-   v
-6. Repository
-   - Interface avec la base de données
-   - Manipule les entités (CRUD)
-   |
-   v
-7. Entité
-   - Représente un modèle ou une table dans la base de données
-   |
-   v
-8. Base de données
-   - Stocke les données persistantes
-
-
-Auth -> Login : Pas de problème
+Auth -> Login : Les adhérents du club peuvent s’authentifier avec un email et un mot de passe. Il reçoit un token JWT pour accéder aux fonctionnalités réservées aux adhérents
    {
     "email" : "CoachBizot@gmail.com",
     "password" : "rootroot"
    }
 
-Auth -> Register : Pas de message de confirmation de création de compte
+Auth -> Register : Un utilisateur peut se créer un compte adhérent, son compte sera validé par le club, son compte aura soit le rôle « coach », soit « contributeur », soit « joueur »
    {
     "nom": "test1",
     "prenom": "test1",
@@ -149,14 +12,16 @@ Auth -> Register : Pas de message de confirmation de création de compte
     "password": "rootroot"
    }
 
-Match -> Create : Trop d'infos sur le coach |Seul les coachs peuvent créer un match
+Match -> Create : • Seul un adhérent « coach » peut saisir des matchs
+                  • Un match doit aussi contenir un adversaire et un score final
+                  • Il ne peut pas y avoir un match le même jour
    {
       "intitule": "Match de préparation",
       "dateMatch": "2025-08-11",
       "adversaire": "Équipe A"
    }
 
-Match -> Update : Pas de problème |Seul les coachs
+Match -> Update : Seul un adhérent « coach » peut modifier les matchs (ex: scores)
    {
   "score": "3-2"
    }
@@ -171,25 +36,217 @@ OU
    }
 
 
-Actualite -> Create : Pas de problème
+Actualite -> Create : Seul les adhérents ayant le rôle « contributeur » peuvent publier des actualités.
+
    {
    "titre": "Blablabla",
    "data": "dygfoazzaandlifzbdhkzgkuebtgzfkhuzibgezvfskjdhfgfhvzgjfkhlhahvhdbbsn,jfhzvk"
    }
 
-Adhérents -> user-match/inscrire : Pas de problème, peut s'inscrire à plusieurs matchs
+Adhérents -> user-match/inscrire : • Seuls les adhérents ayant le rôle « joueur » peuvent s’inscrire aux matchs
+                                   • Les adhérents peuvent s’inscrire à plusieurs matchs
+
    {
    "matchId": 3
    }
 
-Adhérents -> user-match/desinscrire : Pas de message de confirmation
+Adhérents -> user-match/desinscrire : Les adhérents peuvent se désinscrire des matchs auxquels il se sont inscrits.
+
    {
    "matchId": 3
    }
 
 Pas de Tokken requis pour l'API :
-API -> Actualite -> All : Marche correctement
-API -> Actualite -> id : Marche correctement
+API -> Adhérent -> user-match/all : L’API doit être capable de retourner les infos de l’ensemble des adhérents (nom, prénom, date 
+d’inscription, matchs auxquels ils participent)
+API -> Adhérent -> user-match/5 : L’API doit être capable de retourner les infos d’un adhérent particulier (nom, prénom, date 
+d’inscription, matchs auxquels il participe)
+
+API -> Actualite -> actualite : L’API doit être capable de retourner l’ensembles des actualités (toutes les infos + auteur).
+API -> Actualite -> actualite/1 : L’API doit être capable de retourner une actualité particulière (toutes les infos + auteur).
+
+API -> Match -> match/allMatch : L'API doit être capable de retourner les infos de l’ensemble des matchs + liste des participants
+API -> Match -> match/infoMatch/2 : L'API doit être capable de retourner les infos d’un match particulier + liste des participants
+
+ 
 
 
-Dire pourquoi j'ai fais un "dossier" API et pourquoi il y a pas de sécu dessus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ # 🏆 API du Club Sportif
+
+## 🔐 Authentification
+
+### Login
+Les adhérents du club peuvent s'authentifier avec un email et un mot de passe. Ils reçoivent un token JWT pour accéder aux fonctionnalités réservées aux adhérents.
+```
+POST /auth/login
+```
+```json
+{
+  "email": "CoachBizot@gmail.com",
+  "password": "rootroot"
+}
+```
+
+### Register
+Un utilisateur peut se créer un compte adhérent. Son compte sera validé par le club et aura soit le rôle « coach », soit « contributeur », soit « joueur ».
+```
+POST /auth/register
+```
+```json
+{
+  "nom": "test1",
+  "prenom": "test1",
+  "email": "test1@gmail.com",
+  "password": "rootroot"
+}
+```
+
+## ⚽ Gestion des Matchs
+
+### Create
+- **Restriction** : Seul un adhérent « coach » peut saisir des matchs
+- Un match doit aussi contenir un adversaire et un score final
+- Il ne peut pas y avoir un match le même jour
+```
+POST /match/create
+```
+```json
+{
+  "intitule": "Match de préparation",
+  "dateMatch": "2025-08-11",
+  "adversaire": "Équipe A"
+}
+```
+
+### Update
+- **Restriction** : Seul un adhérent « coach » peut modifier les matchs (ex: scores)
+```
+POST /match/{id}
+```
+```json
+{
+  "score": "3-2"
+}
+```
+OU
+```json
+{
+  "scoreFinal": "3-2"
+}
+```
+OU
+```json
+{
+  "score": "3-2",
+  "scoreFinal": "3-2"
+}
+```
+
+## 📰 Gestion des Actualités
+
+### Create
+- **Restriction** : Seul les adhérents ayant le rôle « contributeur » peuvent publier des actualités.
+```
+POST /actualite/create
+```
+```json
+{
+  "titre": "Blablabla",
+  "data": "dygfoazzaandlifzbdhkzgkuebtgzfkhuzibgezvfskjdhfgfhvzgjfkhlhahvhdbbsn,jfhzvk"
+}
+```
+
+## 👥 Gestion des Adhérents
+
+### Inscription aux matchs
+- **Restriction** : Seuls les adhérents ayant le rôle « joueur » peuvent s'inscrire aux matchs
+- Les adhérents peuvent s'inscrire à plusieurs matchs
+```
+POST /user-match/inscrire
+```
+```json
+{
+  "matchId": 3
+}
+```
+
+### Désinscription des matchs
+Les adhérents peuvent se désinscrire des matchs auxquels ils se sont inscrits.
+```
+POST /user-match/desinscrire
+```
+```json
+{
+  "matchId": 3
+}
+```
+
+## 🌐 Endpoints API publics (sans token requis)
+
+### Adhérents
+
+#### Liste complète
+```
+GET /user-match/all
+```
+L'API retourne les infos de l'ensemble des adhérents (nom, prénom, date d'inscription, matchs auxquels ils participent)
+
+#### Adhérent spécifique
+```
+GET /user-match/{id}
+```
+L'API retourne les infos d'un adhérent particulier (nom, prénom, date d'inscription, matchs auxquels il participe)
+
+### Actualités
+
+#### Liste complète
+```
+GET /actualite
+```
+L'API retourne l'ensemble des actualités (toutes les infos + auteur).
+
+#### Actualité spécifique
+```
+GET /actualite/{id}
+```
+L'API retourne une actualité particulière (toutes les infos + auteur).
+
+### Matchs
+
+#### Liste complète
+```
+GET /match/allMatch
+```
+L'API retourne les infos de l'ensemble des matchs + liste des participants
+
+#### Match spécifique
+```
+GET /match/infoMatch/{id}
+```
+L'API retourne les infos d'un match particulier + liste des participants
